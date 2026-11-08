@@ -1,0 +1,19 @@
+name: Pilot maintenance
+
+on:
+  push:
+    branches: [feat/component-extraction]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  default-links:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-maintenance.yml@575844f70cbd5b84b1791da06f20050a1f36e727
+
+  custom-links:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-maintenance.yml@575844f70cbd5b84b1791da06f20050a1f36e727
+    with:
+      link-check-paths: 'docs/contracts.md README.md'
+      link-check-excludes: "--exclude '^https://github\\.com/Gildraen/dx-components-pilot(/.*)?$'"

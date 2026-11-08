@@ -1,0 +1,20 @@
+name: Pilot validate
+
+on:
+  push:
+    branches: [feat/component-extraction]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@575844f70cbd5b84b1791da06f20050a1f36e727
+    secrets: inherit
+
+  lint:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@575844f70cbd5b84b1791da06f20050a1f36e727
+    with:
+      task-name: lint
+    secrets: inherit
