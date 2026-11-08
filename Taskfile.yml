@@ -24,6 +24,7 @@ tasks:
         esac
       - test -f .devcontainer/devcontainer.json
       - test -f .gitmodules
+      - test -f AGENTS.md && test -f README.md && test -f renovate.json
 
   lint:
     desc: Validate the agents and tools components.
