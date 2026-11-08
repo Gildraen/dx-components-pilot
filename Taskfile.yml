@@ -1,5 +1,13 @@
 version: '3'
 
+includes:
+  tools: https://github.com/Gildraen/dx-tools/raw/935bd0b6e03438a218cc7afec9fd5786b79a8c14/taskfiles/base.yml
+
+env:
+  DX_AGENTS_HOME: '{{.ROOT_DIR}}/.devcontainer/components/agents'
+  DX_TOOLS_HOME: '{{.ROOT_DIR}}/.devcontainer/components/tools'
+  PATH: '{{.ROOT_DIR}}/.devcontainer/components/tools/bin:{{.PATH}}'
+
 tasks:
   default:
     desc: Show available tasks.
@@ -16,6 +24,20 @@ tasks:
         esac
       - test -f .devcontainer/devcontainer.json
       - test -f .gitmodules
+
+  lint:
+    desc: Validate the agents and tools components.
+    cmds:
+      - git submodule update --init --recursive
+      - task --dir .devcontainer/components/agents validate
+      - task --dir .devcontainer/components/tools validate
+
+  test:
+    desc: Run the real component suites and the remote tools doctor.
+    cmds:
+      - task --dir .devcontainer/components/agents test
+      - task --dir .devcontainer/components/tools test
+      - task tools:doctor
 
   fail:
     desc: Return an intentional failure for the negative workflow.
