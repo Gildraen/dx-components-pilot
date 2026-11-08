@@ -52,7 +52,7 @@ component suites and the remotely included tools doctor with an explicit
 The three caller workflows and component integration run on pushes to
 `feat/component-extraction` and support manual dispatch. All reusable calls
 pin `Gildraen/ci-workflows` to
-`575844f70cbd5b84b1791da06f20050a1f36e727`. No workflow targets `main`.
+`ee36dca8e6a5b2c40a652fcd438e4e6451c9e108`. No workflow targets `main`.
 
 Validation exercises the default task and a custom `task-name: lint`.
 Devcontainer testing runs `task test` inside the consumer container.

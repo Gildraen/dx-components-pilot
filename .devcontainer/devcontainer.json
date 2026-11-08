@@ -2,6 +2,12 @@
   "name": "DX components pilot",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
+      "packages": "ripgrep"
+    },
     "ghcr.io/devcontainers-extra/features/go-task:1": {
       "version": "3.53.1"
     }
