@@ -1,0 +1,6 @@
+[submodule ".devcontainer/components/agents"]
+	path = .devcontainer/components/agents
+	url = https://github.com/Gildraen/dx-agents.git
+[submodule ".devcontainer/components/tools"]
+	path = .devcontainer/components/tools
+	url = https://github.com/Gildraen/dx-tools.git
