@@ -1,0 +1,23 @@
+name: Pilot negative validate
+
+on:
+  workflow_dispatch:
+    inputs:
+      task-name:
+        description: Intentional failure scenario
+        type: choice
+        required: true
+        default: fail
+        options:
+          - fail
+          - missing
+
+permissions:
+  contents: read
+
+jobs:
+  negative:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@ee36dca8e6a5b2c40a652fcd438e4e6451c9e108
+    with:
+      task-name: ${{ inputs.task-name }}
+    secrets: inherit
