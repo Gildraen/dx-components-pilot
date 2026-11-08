@@ -1,0 +1,23 @@
+version: '3'
+
+tasks:
+  default:
+    desc: Show available tasks.
+    cmds:
+      - task --list
+
+  validate:
+    desc: Check remote trust and consumer configuration.
+    cmds:
+      - |
+        case ",${TASK_REMOTE_TRUSTED_HOSTS:-}," in
+          *,github.com,*) ;;
+          *) echo 'github.com must be a trusted Task remote host' >&2; exit 1 ;;
+        esac
+      - test -f .devcontainer/devcontainer.json
+      - test -f .gitmodules
+
+  fail:
+    desc: Return an intentional failure for the negative workflow.
+    cmds:
+      - 'false'
