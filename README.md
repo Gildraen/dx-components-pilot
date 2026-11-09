@@ -10,9 +10,11 @@ no DX Feature or runtime is installed.
 
 ## Components
 
-Git submodules pin agents to `b65f27291bff63349fb221c38241350514275de9`
-and tools to `935bd0b6e03438a218cc7afec9fd5786b79a8c14` under
-`.devcontainer/components/`. The Dev Container initializes them with
+The candidate consumption version of the shared components is `v0.1.0-rc.1`,
+a prerelease, not a stable release. Agents and tools are Git submodules under
+`.devcontainer/components/`. Selecting a version tag resolves a commit, which
+the parent repository records as a gitlink. The Dev Container initializes the
+recorded commits with
 `git submodule update --init --recursive` before creation.
 
 `DX_AGENTS_HOME` selects the shared agent bootstrap. `DX_TOOLS_HOME` selects
@@ -21,18 +23,30 @@ the tools checkout. The tools `bin/` directory is on the container's remote
 Running the MCP server requires Docker and a reachable daemon; the pilot
 does not install Docker. Component tests use a fake Docker CLI.
 
-The Taskfile includes the tools helper through Task's native HTTP reader at
-the same tools SHA. Task 3.53.1's Git reader forces `depth=1`, so its
-`https://github.com/Gildraen/dx-tools.git//taskfiles/base.yml?ref=<SHA>` form
-cannot clone a commit SHA. The HTTP include keeps `github.com` as the
-trusted entrypoint and does not use a floating ref.
+The Taskfile includes the tools helper through Task 3.53.1's native HTTP reader
+at `https://github.com/Gildraen/dx-tools/raw/v0.1.0-rc.1/taskfiles/base.yml`.
+The include keeps `github.com` as the trusted entrypoint and selects a fixed
+version tag.
 
-Renovate extends `github>Gildraen/renovate-config#feat/component-extraction`
-and explicitly enables its native `git-submodules` manager. The preset
-branch must be published for Renovate to resolve it. The HTTP Task include
-is independently pinned; it is not managed by the native submodule manager.
+Renovate extends `github>Gildraen/renovate-config#v0.1.0-rc.1`.
+The preset tag must be published for Renovate to resolve it. Native submodule
+updates are disabled so that branch updates cannot replace the selected
+versions. Update the gitlinks explicitly when selecting new component tags.
+The versioned HTTP Task include is managed separately by the preset.
 
 ## Local Checks
+
+To select the candidate submodule versions, initialize the checkouts, select
+the tags, then record the resolved gitlinks in the parent repository:
+
+```sh
+git submodule update --init --recursive
+git -C .devcontainer/components/agents checkout --detach v0.1.0-rc.1
+git -C .devcontainer/components/tools checkout --detach v0.1.0-rc.1
+git add .devcontainer/components/agents .devcontainer/components/tools
+```
+
+To validate the recorded checkouts:
 
 ```sh
 git submodule update --init --recursive
@@ -52,7 +66,7 @@ component suites and the remotely included tools doctor with an explicit
 The three caller workflows and component integration run on pushes to
 `feat/component-extraction` and support manual dispatch. All reusable calls
 pin `Gildraen/ci-workflows` to
-`ee36dca8e6a5b2c40a652fcd438e4e6451c9e108`. No workflow targets `main`.
+`v0.1.0-rc.1`. No workflow targets `main`.
 
 Validation exercises the default task and a custom `task-name: lint`.
 Devcontainer testing runs `task test` inside the consumer container.
