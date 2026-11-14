@@ -1,0 +1,34 @@
+{
+  "name": "DX components pilot",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {
+      "packages": "ripgrep"
+    },
+    "ghcr.io/devcontainers-extra/features/go-task:1": {
+      "version": "3.53.1"
+    }
+  },
+  "initializeCommand": "git submodule update --init --recursive",
+  "remoteEnv": {
+    "DX_AGENTS_HOME": "${containerWorkspaceFolder}/.devcontainer/components/agents",
+    "DX_TOOLS_HOME": "${containerWorkspaceFolder}/.devcontainer/components/tools",
+    "PATH": "${containerWorkspaceFolder}/.devcontainer/components/tools/bin:${containerEnv:PATH}",
+    "TASK_REMOTE_TRUSTED_HOSTS": "github.com"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "chat.agentFilesLocations": {
+          ".devcontainer/components/agents/agents": true
+        },
+        "chat.agentSkillsLocations": {
+          ".devcontainer/components/agents/skills": true
+        }
+      }
+    }
+  }
+}
