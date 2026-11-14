@@ -10,9 +10,10 @@ Tests run both components' real test suites and the remotely included
 launcher path. The integration workflow runs these contracts outside DX;
 the reusable devcontainer workflow runs them inside the consumer container.
 
-Maintenance checks local documentation links without needing initialized
-submodules. Its default caller leaves both inputs unset. Its custom caller
-selects this document and the README, excluding the pilot's GitHub URL.
+Maintenance checks local and remote documentation links after recursively
+initializing submodules. Its default caller leaves both inputs unset. Its
+custom caller selects this document and the README, excluding the pilot's
+GitHub URL.
 
 The manually dispatched negative validation selects `fail`, which exits
 with an error, or `missing`, which Task cannot resolve. Both runs must fail;

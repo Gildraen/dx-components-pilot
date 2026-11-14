@@ -6,7 +6,6 @@ includes:
 env:
   DX_AGENTS_HOME: '{{.ROOT_DIR}}/.devcontainer/components/agents'
   DX_TOOLS_HOME: '{{.ROOT_DIR}}/.devcontainer/components/tools'
-  PATH: '{{.ROOT_DIR}}/.devcontainer/components/tools/bin:{{.PATH}}'
 
 tasks:
   default:
@@ -39,6 +38,12 @@ tasks:
       - task --dir .devcontainer/components/agents test
       - task --dir .devcontainer/components/tools test
       - task tools:doctor
+      - bash tests/test-tools-launcher.sh
+
+  mcp:github:
+    desc: Run the GitHub MCP server from the tools component.
+    cmds:
+      - '"{{.ROOT_DIR}}/.devcontainer/components/tools/bin/dx-mcp" github {{.CLI_ARGS}}'
 
   fail:
     desc: Return an intentional failure for the negative workflow.

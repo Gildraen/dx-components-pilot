@@ -1,8 +1,9 @@
 name: Pilot maintenance
 
 on:
+  pull_request:
   push:
-    branches: [feat/component-extraction]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
