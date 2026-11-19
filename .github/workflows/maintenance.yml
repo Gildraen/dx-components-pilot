@@ -11,10 +11,10 @@ permissions:
 
 jobs:
   default-links:
-    uses: Gildraen/ci-workflows/.github/workflows/reusable-maintenance.yml@b8cc1c66c153e49887f0c63baa4a1aa238998b10 # v0.1.0-rc.1
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-maintenance.yml@62f1721ea92ffd7275f4e4e2c60727b486d7def1 # v0.1.0
 
   custom-links:
-    uses: Gildraen/ci-workflows/.github/workflows/reusable-maintenance.yml@b8cc1c66c153e49887f0c63baa4a1aa238998b10 # v0.1.0-rc.1
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-maintenance.yml@62f1721ea92ffd7275f4e4e2c60727b486d7def1 # v0.1.0
     with:
       link-check-paths: 'docs/contracts.md README.md'
       link-check-excludes: "--exclude '^https://github\\.com/Gildraen/dx-components-pilot(/.*)?$'"

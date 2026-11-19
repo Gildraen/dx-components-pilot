@@ -11,5 +11,5 @@ permissions:
 
 jobs:
   test:
-    uses: Gildraen/ci-workflows/.github/workflows/reusable-devcontainer-test.yml@b8cc1c66c153e49887f0c63baa4a1aa238998b10 # v0.1.0-rc.1
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-devcontainer-test.yml@62f1721ea92ffd7275f4e4e2c60727b486d7def1 # v0.1.0
     secrets: inherit

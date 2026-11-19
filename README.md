@@ -10,11 +10,12 @@ Go Task 3.53.1; no DX Feature or runtime is installed.
 
 ## Components
 
-The candidate tag for the shared components is `v0.1.0-rc.1`, a prerelease,
-not a stable release. It resolves to `a448037a8b96b2269ac1b46f0ff2018738083c1e`
-for agents and `6630f37ffdc3a8c51af0f4795145a4743a61584b` for tools. Agents and
-tools are Git submodules under `.devcontainer/components/`; the parent records
-their resolved commit SHAs as gitlinks. The Dev Container initializes the
+The stable component release is `v0.1.0`. It resolves to
+`2bc43f5c09a2d8676288de3470cd890ed4c08448` for agents and
+`f7b5a41f48026571cafe3e7d287dd0234db9c0b6` for tools. Agents and tools are Git
+submodules under `.devcontainer/components/`; the parent records their
+resolved commit SHAs as gitlinks, and `.gitmodules` records the stable tag in
+each submodule's `branch` field for Renovate. The Dev Container initializes the
 recorded commits with
 `git submodule update --init --recursive` before creation.
 
@@ -25,15 +26,15 @@ server requires Docker and a reachable daemon; the pilot does not install
 Docker. Component tests use a fake Docker CLI.
 
 The Taskfile includes the tools helper through Task 3.53.1's native HTTP reader
-at `https://github.com/Gildraen/dx-tools/raw/6630f37ffdc3a8c51af0f4795145a4743a61584b/taskfiles/base.yml`.
-The include pins the commit SHA. Its trailing `v0.1.0-rc.1` comment is Renovate's
+at `https://github.com/Gildraen/dx-tools/raw/f7b5a41f48026571cafe3e7d287dd0234db9c0b6/taskfiles/base.yml`.
+The include pins the commit SHA. Its trailing `v0.1.0` comment is Renovate's
 version update stream.
 
-Renovate extends `github>Gildraen/renovate-config#v0.0.1` to track SHA-pinned
-Taskfile includes and explicitly disables native submodule updates. Update the
-gitlinks explicitly when selecting new component commits. The versioned HTTP
-Task include keeps its version tag and commit SHA together under the preset's
-custom manager.
+Renovate extends `github>Gildraen/renovate-config#v0.1.0` to track SHA-pinned
+Taskfile includes and component gitlinks. The preset reads the stable tag from
+each `.gitmodules` `branch` field; update the gitlink to the commit resolved by
+that tag when selecting new component versions. The versioned HTTP Task include
+keeps its version tag and commit SHA together under the preset's custom manager.
 
 ## Local Checks
 
@@ -41,13 +42,13 @@ Local checks require Git, Bash, Node.js, ripgrep and Go Task 3.53.1. GitHub
 access is required to initialize the component submodules and fetch the remote
 Taskfile include.
 
-To select the candidate submodule versions, initialize the checkouts, select
+To select the stable submodule versions, initialize the checkouts, select
 the commit SHAs, then record the gitlinks in the parent repository:
 
 ```sh
 git submodule update --init --recursive
-git -C .devcontainer/components/agents checkout --detach a448037a8b96b2269ac1b46f0ff2018738083c1e
-git -C .devcontainer/components/tools checkout --detach 6630f37ffdc3a8c51af0f4795145a4743a61584b
+git -C .devcontainer/components/agents checkout --detach 2bc43f5c09a2d8676288de3470cd890ed4c08448
+git -C .devcontainer/components/tools checkout --detach f7b5a41f48026571cafe3e7d287dd0234db9c0b6
 git add .devcontainer/components/agents .devcontainer/components/tools
 ```
 
@@ -70,8 +71,8 @@ component suites and the remotely included tools doctor with an explicit
 
 The three caller workflows and component integration run on pull requests
 and pushes to `main`, and support manual dispatch. Reusable calls pin
-`Gildraen/ci-workflows` to `b8cc1c66c153e49887f0c63baa4a1aa238998b10` and
-retain tag `v0.1.0-rc.1` in comments for Renovate.
+`Gildraen/ci-workflows` to `62f1721ea92ffd7275f4e4e2c60727b486d7def1` and
+retain tag `v0.1.0` in comments for Renovate.
 
 Validation exercises the default task and a custom `task-name: lint`.
 Devcontainer testing runs `task test` inside the consumer container.
