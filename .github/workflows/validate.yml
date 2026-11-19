@@ -1,0 +1,21 @@
+name: Pilot validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@62f1721ea92ffd7275f4e4e2c60727b486d7def1 # v0.1.0
+    secrets: inherit
+
+  lint:
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@62f1721ea92ffd7275f4e4e2c60727b486d7def1 # v0.1.0
+    with:
+      task-name: lint
+    secrets: inherit
