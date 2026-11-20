@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "b93d3653849cc1b721146b83fa5527b895ff5de0",
+  "include-component-in-tag": false,
+  "include-v-in-tag": false,
+  "packages": {
+    ".": {
+      "release-type": "simple",
+      "package-name": "dx-components-pilot",
+      "version-file": "version.txt"
+    }
+  }
+}

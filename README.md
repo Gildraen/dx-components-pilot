@@ -36,6 +36,22 @@ each `.gitmodules` `branch` field; update the gitlink to the commit resolved by
 that tag when selecting new component versions. The versioned HTTP Task include
 keeps its version tag and commit SHA together under the preset's custom manager.
 
+## Releases
+
+Release Please versions this repository as a snapshot of the DX consumer
+integration contracts; it does not publish an application package. After the
+`validate` and `lint` jobs succeed on a push to `main`, it opens or updates a
+release PR from Conventional Commits. Merging that PR creates a GitHub Release
+and an unprefixed stable SemVer tag. The initial baseline is recorded in
+`version.txt` and `.release-please-manifest.json`.
+
+the Renovate rules for no-v component tags come from the shared preset; merge
+the preset's release PR before this PR so its `0.2.0` ref exists. Configure
+`RELEASE_PLEASE_TOKEN` as a fine-grained repository secret so CI runs
+automatically on the release PR. GitHub suppresses workflow runs for pull
+requests created with `GITHUB_TOKEN`; without the secret, required PR checks
+may not run and must be handled before merging.
+
 ## Local Checks
 
 Local checks require Git, Bash, Node.js, ripgrep and Go Task 3.53.1. GitHub
