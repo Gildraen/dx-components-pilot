@@ -14,7 +14,9 @@ assert.equal(config['bootstrap-sha'], 'b93d3653849cc1b721146b83fa5527b895ff5de0'
 assert.equal(config.packages['.']['version-file'], 'version.txt');
 assert.match(manifest['.'], /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/);
 assert.equal(fs.readFileSync('version.txt', 'utf8').trim(), manifest['.']);
-assert.equal(JSON.parse(fs.readFileSync('renovate.json', 'utf8')).extends[0], 'github>Gildraen/renovate-config#0.2.0');
+const presetExtends = JSON.parse(fs.readFileSync('renovate.json', 'utf8')).extends;
+assert.equal(presetExtends.length, 1);
+assert.match(presetExtends[0], /^github>Gildraen\/renovate-config#(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/);
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const releaseWorkflow = fs.readFileSync('.github/workflows/release-please.yml', 'utf8');
 assert.doesNotMatch(validateWorkflow, /workflow_dispatch/);
