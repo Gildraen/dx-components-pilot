@@ -39,10 +39,11 @@ keeps its version tag and commit SHA together under the preset's custom manager.
 ## Releases
 
 Release Please versions this repository as a snapshot of the DX consumer
-integration contracts; it does not publish an application package. After the
-`validate` and `lint` jobs succeed on a push to `main`, the caller invokes the
-shared Release Please workflow from `Gildraen/ci-workflows`, pinned to commit
-`4b4026ff669b5fe8da2aa83e216591bb09e1e8a1` (future tag `0.2.0`). Merging the
+integration contracts; it does not publish an application package. The
+separate `release-please.yml` workflow waits for `Pilot validate` to complete
+successfully on a push to `main`, then calls the shared Release Please workflow
+from `Gildraen/ci-workflows`, pinned to commit
+`b04cfb98139aa06de661c70a128452184f2004dd` (future tag `0.2.0`). Merging the
 resulting release PR creates a GitHub Release and an unprefixed stable SemVer
 tag. The initial baseline is recorded in `version.txt` and
 `.release-please-manifest.json`.
