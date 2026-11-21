@@ -40,13 +40,16 @@ keeps its version tag and commit SHA together under the preset's custom manager.
 
 Release Please versions this repository as a snapshot of the DX consumer
 integration contracts; it does not publish an application package. After the
-`validate` and `lint` jobs succeed on a push to `main`, it opens or updates a
-release PR from Conventional Commits. Merging that PR creates a GitHub Release
-and an unprefixed stable SemVer tag. The initial baseline is recorded in
-`version.txt` and `.release-please-manifest.json`.
+`validate` and `lint` jobs succeed on a push to `main`, the caller invokes the
+shared Release Please workflow from `Gildraen/ci-workflows`, pinned to commit
+`4b4026ff669b5fe8da2aa83e216591bb09e1e8a1` (future tag `0.2.0`). Merging the
+resulting release PR creates a GitHub Release and an unprefixed stable SemVer
+tag. The initial baseline is recorded in `version.txt` and
+`.release-please-manifest.json`.
 
-the Renovate rules for no-v component tags come from the shared preset; merge
-the preset's release PR before this PR so its `0.2.0` ref exists. Configure
+Publish ci-workflows `0.2.0` before merging this PR so the shared workflow ref
+is available. The Renovate rules for no-v component tags come from the shared
+preset; merge the preset's release PR before this PR so its `0.2.0` ref exists. Configure
 `RELEASE_PLEASE_TOKEN` as a fine-grained repository secret so CI runs
 automatically on the release PR. GitHub suppresses workflow runs for pull
 requests created with `GITHUB_TOKEN`; without the secret, required PR checks
