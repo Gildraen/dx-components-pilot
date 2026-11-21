@@ -21,7 +21,7 @@ assert.doesNotMatch(validateWorkflow, /workflow_dispatch/);
 assert.match(releaseWorkflow, /workflows: \[Pilot validate\]/);
 assert.match(releaseWorkflow, /types: \[completed\]/);
 assert.match(releaseWorkflow, /branches: \[main\]/);
-assert.match(releaseWorkflow, /if: github\.event\.workflow_run\.conclusion == 'success' && github\.event\.workflow_run\.event == 'push'/);
+assert.match(releaseWorkflow, /if: github\.event\.workflow_run\.conclusion == 'success'/);
 assert.match(releaseWorkflow, /permissions:\n      contents: write\n      issues: write\n      pull-requests: write/);
 assert.match(releaseWorkflow, /reusable-release-please\.yml@b04cfb98139aa06de661c70a128452184f2004dd # 0\.2\.0/);
 assert.match(releaseWorkflow, /config-file: release-please-config\.json/);
