@@ -23,7 +23,8 @@ tasks:
         esac
       - test -f .devcontainer/devcontainer.json
       - test -f .gitmodules
-      - test -f AGENTS.md && test -f README.md && test -f renovate.json
+      - test -f AGENTS.md && test -f README.md && test -f renovate.json && test -f .gitignore
+      - test -f release-please-config.json && test -f .release-please-manifest.json && test -f version.txt
 
   lint:
     desc: Validate the agents and tools components.
@@ -39,6 +40,7 @@ tasks:
       - task --dir .devcontainer/components/tools test
       - task tools:doctor
       - bash tests/test-tools-launcher.sh
+      - bash tests/test-release-config.sh
 
   mcp:github:
     desc: Run the GitHub MCP server from the tools component.

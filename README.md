@@ -36,6 +36,26 @@ each `.gitmodules` `branch` field; update the gitlink to the commit resolved by
 that tag when selecting new component versions. The versioned HTTP Task include
 keeps its version tag and commit SHA together under the preset's custom manager.
 
+## Releases
+
+Release Please versions this repository as a snapshot of the DX consumer
+integration contracts; it does not publish an application package. The
+separate `release-please.yml` workflow waits for `Pilot validate` to complete
+successfully on a push to `main`, then calls the shared Release Please workflow
+from `Gildraen/ci-workflows`, pinned to commit
+`b04cfb98139aa06de661c70a128452184f2004dd` (future tag `0.2.0`). Merging the
+resulting release PR creates a GitHub Release and an unprefixed stable SemVer
+tag. The initial baseline is recorded in `version.txt` and
+`.release-please-manifest.json`.
+
+Publish ci-workflows `0.2.0` before merging this PR so the shared workflow ref
+is available. The Renovate rules for no-v component tags come from the shared
+preset; merge the preset's release PR before this PR so its `0.2.0` ref exists. Configure
+`RELEASE_PLEASE_TOKEN` as a fine-grained repository secret so CI runs
+automatically on the release PR. GitHub suppresses workflow runs for pull
+requests created with `GITHUB_TOKEN`; without the secret, required PR checks
+may not run and must be handled before merging.
+
 ## Local Checks
 
 Local checks require Git, Bash, Node.js, ripgrep and Go Task 3.53.1. GitHub
@@ -69,8 +89,9 @@ component suites and the remotely included tools doctor with an explicit
 
 ## GitHub Execution
 
-The three caller workflows and component integration run on pull requests
-and pushes to `main`, and support manual dispatch. Reusable calls pin
+The caller workflows and component integration run on pull requests and pushes
+to `main`. Manual dispatch remains available for devcontainer testing,
+maintenance, component integration, and negative validation. Reusable calls pin
 `Gildraen/ci-workflows` to `62f1721ea92ffd7275f4e4e2c60727b486d7def1` and
 retain tag `v0.1.0` in comments for Renovate.
 
