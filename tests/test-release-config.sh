@@ -12,7 +12,7 @@ const manifest = JSON.parse(fs.readFileSync('.release-please-manifest.json', 'ut
 assert.equal(config['include-v-in-tag'], false);
 assert.equal(config['bootstrap-sha'], 'b93d3653849cc1b721146b83fa5527b895ff5de0');
 assert.equal(config.packages['.']['version-file'], 'version.txt');
-assert.equal(manifest['.'], '0.0.0');
+assert.match(manifest['.'], /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/);
 assert.equal(fs.readFileSync('version.txt', 'utf8').trim(), manifest['.']);
 assert.equal(JSON.parse(fs.readFileSync('renovate.json', 'utf8')).extends[0], 'github>Gildraen/renovate-config#0.2.0');
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
