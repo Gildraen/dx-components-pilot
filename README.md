@@ -89,8 +89,9 @@ component suites and the remotely included tools doctor with an explicit
 
 ## GitHub Execution
 
-The three caller workflows and component integration run on pull requests
-and pushes to `main`, and support manual dispatch. Reusable calls pin
+The caller workflows and component integration run on pull requests and pushes
+to `main`. Manual dispatch remains available for devcontainer testing,
+maintenance, component integration, and negative validation. Reusable calls pin
 `Gildraen/ci-workflows` to `62f1721ea92ffd7275f4e4e2c60727b486d7def1` and
 retain tag `v0.1.0` in comments for Renovate.
 

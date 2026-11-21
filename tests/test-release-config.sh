@@ -17,6 +17,7 @@ assert.equal(fs.readFileSync('version.txt', 'utf8').trim(), manifest['.']);
 assert.equal(JSON.parse(fs.readFileSync('renovate.json', 'utf8')).extends[0], 'github>Gildraen/renovate-config#0.2.0');
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const releaseWorkflow = fs.readFileSync('.github/workflows/release-please.yml', 'utf8');
+assert.doesNotMatch(validateWorkflow, /workflow_dispatch/);
 assert.match(releaseWorkflow, /workflows: \[Pilot validate\]/);
 assert.match(releaseWorkflow, /types: \[completed\]/);
 assert.match(releaseWorkflow, /branches: \[main\]/);
