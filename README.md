@@ -43,18 +43,18 @@ integration contracts; it does not publish an application package. The
 separate `release-please.yml` workflow waits for `Pilot validate` to complete
 successfully on a push to `main`, then calls the shared Release Please workflow
 from `Gildraen/ci-workflows`, pinned to commit
-`b04cfb98139aa06de661c70a128452184f2004dd` (future tag `0.2.0`). Merging the
+`495bb9b377719414123af8c329b02aeff58ab440` (future tag `0.2.0`). Merging the
 resulting release PR creates a GitHub Release and an unprefixed stable SemVer
 tag. The initial baseline is recorded in `version.txt` and
 `.release-please-manifest.json`.
 
 Publish ci-workflows `0.2.0` before merging this PR so the shared workflow ref
 is available. The Renovate rules for no-v component tags come from the shared
-preset; merge the preset's release PR before this PR so its `0.2.0` ref exists. Configure
-`RELEASE_PLEASE_TOKEN` as a fine-grained repository secret so CI runs
-automatically on the release PR. GitHub suppresses workflow runs for pull
-requests created with `GITHUB_TOKEN`; without the secret, required PR checks
-may not run and must be handled before merging.
+preset; merge the preset's release PR before this PR so its `0.2.0` ref exists.
+Install the Release Please GitHub App on this repository with Contents, Issues,
+and Pull requests write permissions. Configure repository variable
+`RELEASE_PLEASE_APP_CLIENT_ID` and repository Actions secret
+`RELEASE_PLEASE_APP_PRIVATE_KEY`. App-created release PRs trigger normal CI.
 
 ## Local Checks
 
