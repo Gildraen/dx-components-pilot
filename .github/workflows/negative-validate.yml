@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   negative:
-    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@62f1721ea92ffd7275f4e4e2c60727b486d7def1 # v0.1.0
+    uses: Gildraen/ci-workflows/.github/workflows/reusable-validate.yml@eabb9d61ea2a827476f46e7e3e9577d956d8f470 # 0.2.0
     with:
       task-name: ${{ inputs.task-name }}
     secrets: inherit
