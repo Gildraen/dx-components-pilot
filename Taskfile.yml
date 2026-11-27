@@ -1,7 +1,7 @@
 version: '3'
 
 includes:
-  tools: https://github.com/Gildraen/dx-tools/raw/f7b5a41f48026571cafe3e7d287dd0234db9c0b6/taskfiles/base.yml # v0.1.0
+  tools: https://github.com/Gildraen/dx-tools/raw/340e66482239419544ed405079bce4e8395dbc6e/taskfiles/base.yml # 0.2.0
 
 env:
   DX_AGENTS_HOME: '{{.ROOT_DIR}}/.devcontainer/components/agents'

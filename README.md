@@ -10,10 +10,10 @@ Go Task 3.53.1; no DX Feature or runtime is installed.
 
 ## Components
 
-The stable component release is `v0.1.0`. It resolves to
-`2bc43f5c09a2d8676288de3470cd890ed4c08448` for agents and
-`f7b5a41f48026571cafe3e7d287dd0234db9c0b6` for tools. Agents and tools are Git
-submodules under `.devcontainer/components/`; the parent records their
+The current component releases selected by the gitlinks are `dx-agents` `0.3.0`
+at `b61d5030978de234c6c6623715c27cba0c3e2381` and `dx-tools` `0.2.0` at
+`340e66482239419544ed405079bce4e8395dbc6e`. These are unprefixed Git tags.
+Agents and tools are Git submodules under `.devcontainer/components/`; the parent records their
 resolved commit SHAs as gitlinks, and `.gitmodules` records the stable tag in
 each submodule's `branch` field for Renovate. The Dev Container initializes the
 recorded commits with
@@ -26,11 +26,11 @@ server requires Docker and a reachable daemon; the pilot does not install
 Docker. Component tests use a fake Docker CLI.
 
 The Taskfile includes the tools helper through Task 3.53.1's native HTTP reader
-at `https://github.com/Gildraen/dx-tools/raw/f7b5a41f48026571cafe3e7d287dd0234db9c0b6/taskfiles/base.yml`.
-The include pins the commit SHA. Its trailing `v0.1.0` comment is Renovate's
+at `https://github.com/Gildraen/dx-tools/raw/340e66482239419544ed405079bce4e8395dbc6e/taskfiles/base.yml`.
+The include pins the commit SHA. Its trailing `0.2.0` comment is Renovate's
 version update stream.
 
-Renovate extends `github>Gildraen/renovate-config#v0.1.0` to track SHA-pinned
+Renovate extends `github>Gildraen/renovate-config#1.0.0` to track SHA-pinned
 Taskfile includes and component gitlinks. The preset reads the stable tag from
 each `.gitmodules` `branch` field; update the gitlink to the commit resolved by
 that tag when selecting new component versions. The versioned HTTP Task include
@@ -43,14 +43,13 @@ integration contracts; it does not publish an application package. The
 separate `release-please.yml` workflow waits for `Pilot validate` to complete
 successfully on a push to `main`, then calls the shared Release Please workflow
 from `Gildraen/ci-workflows`, pinned to commit
-`495bb9b377719414123af8c329b02aeff58ab440` (future tag `0.2.0`). Merging the
+`eabb9d61ea2a827476f46e7e3e9577d956d8f470` (tag `0.2.0`). Merging the
 resulting release PR creates a GitHub Release and an unprefixed stable SemVer
 tag. The initial baseline is recorded in `version.txt` and
 `.release-please-manifest.json`.
 
-Publish ci-workflows `0.2.0` before merging this PR so the shared workflow ref
-is available. The Renovate rules for no-v component tags come from the shared
-preset; merge the preset's release PR before this PR so its `0.2.0` ref exists.
+The shared Renovate preset is consumed at `1.0.0`; its component-tag rules are
+independent of this repository's release and the `ci-workflows` `0.2.0` ref.
 Install the Release Please GitHub App on this repository with Contents, Issues,
 and Pull requests write permissions. Configure repository variable
 `RELEASE_PLEASE_APP_CLIENT_ID` and repository Actions secret
@@ -67,8 +66,8 @@ the commit SHAs, then record the gitlinks in the parent repository:
 
 ```sh
 git submodule update --init --recursive
-git -C .devcontainer/components/agents checkout --detach 2bc43f5c09a2d8676288de3470cd890ed4c08448
-git -C .devcontainer/components/tools checkout --detach f7b5a41f48026571cafe3e7d287dd0234db9c0b6
+git -C .devcontainer/components/agents checkout --detach b61d5030978de234c6c6623715c27cba0c3e2381
+git -C .devcontainer/components/tools checkout --detach 340e66482239419544ed405079bce4e8395dbc6e
 git add .devcontainer/components/agents .devcontainer/components/tools
 ```
 
@@ -92,8 +91,8 @@ component suites and the remotely included tools doctor with an explicit
 The caller workflows and component integration run on pull requests and pushes
 to `main`. Manual dispatch remains available for devcontainer testing,
 maintenance, component integration, and negative validation. Reusable calls pin
-`Gildraen/ci-workflows` to `62f1721ea92ffd7275f4e4e2c60727b486d7def1` and
-retain tag `v0.1.0` in comments for Renovate.
+`Gildraen/ci-workflows` to `eabb9d61ea2a827476f46e7e3e9577d956d8f470` and
+retain tag `0.2.0` in comments for Renovate.
 
 Validation exercises the default task and a custom `task-name: lint`.
 Devcontainer testing runs `task test` inside the consumer container.
